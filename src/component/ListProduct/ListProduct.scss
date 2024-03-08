@@ -1,0 +1,21 @@
+.page__list-product{
+    // padding-left: 20px;
+    // width: 100%;
+   position: relative;
+    .header__list-product{
+        // display: flex;
+        // justify-content: space-between;
+    }
+    .container__list-product{
+        // height: max-content;
+        // display: grid;
+        // grid-template-columns: auto auto auto;
+        
+    }
+    .container__pagination{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        padding-bottom: 20px;
+    }
+}

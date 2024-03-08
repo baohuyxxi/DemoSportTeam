@@ -1,0 +1,12 @@
+.frame-page{
+    max-width: 1488px;
+    height: max-content;
+    position: relative;
+    .frame-page__main{
+        margin: 100px 100px 0px 100px;
+        min-height: 1000px;
+        max-height: max-content;
+        position: relative;
+        display: flex;
+    }
+}

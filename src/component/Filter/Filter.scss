@@ -1,0 +1,72 @@
+.filter__container {
+  position: sticky;
+  top: 100px;
+  height: max-content;
+  // width: 300px;
+  // min-height: 400px;
+  // max-height: 500px;
+  box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.16),
+    5px 0 5px -5px rgba(0, 0, 0, 0.16), 0 5px 10px -5px rgba(0, 0, 0, 0.3);
+  line-height: 1.75;
+  border-radius: 10px;
+  padding: 10px;
+  text-transform: capitalize;
+  .filter__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .filter__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .filter__clear {
+      color: #ff5a5f;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .filter__content {
+    .filter__item {
+      .filter__price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .input__price-container {
+          display: flex;
+          text-align: center;
+          .filter__price-title {
+          }
+          .from {
+            width: 80%;
+            height: 30px;
+          }
+          .to {
+            width: 80%;
+            height: 30px;
+          }
+        }
+      }
+    }
+    .accordion {
+      .filter__item-accordionSummary {
+        display: flex;
+        justify-content: space-between;
+        .filter__item-accordionTitle {
+        }
+        .filter__item-accordionIcon {
+        }
+      }
+      .filter__item-accordionDetails {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+      }
+
+      .filter__item-accordionDetails.active {
+        max-height: 500px;
+      }
+    }
+  }
+}

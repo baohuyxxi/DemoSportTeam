@@ -1,0 +1,27 @@
+
+.container__app{
+    max-width: 1488px;
+    height: max-content;
+    position: relative;
+    .container__page{
+        margin: 100px 100px 0px 100px;
+        min-height: 1000px;
+        max-height: max-content;
+        position: relative;
+        display: flex;
+    }
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    color: #7C7C7C;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
