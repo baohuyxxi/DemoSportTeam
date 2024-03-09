@@ -45,7 +45,7 @@ export default function CartItem({
   };
 
   const handleCheckboxChange = () => {
-    onToggleCheckbox(index, !isSelected);
+    onToggleCheckbox(`${cartitem.id}${cartitem.size}${cartitem.color}`, !isSelected);
   };
 
   return (
@@ -53,9 +53,9 @@ export default function CartItem({
       <div className="col l-5">
         <div className="info__cart-item">
           <Checkbox
-            id={index.toString()}
+            id={`${cartitem.id}-${cartitem.size}-${cartitem.color}`}
             checked={isSelected}
-            onChange={() => handleCheckboxChange(index)}
+            onChange={() => handleCheckboxChange()}
           />
           <div className="img__cart-item">
             <img src={product.image} alt="" className="img-cart" />

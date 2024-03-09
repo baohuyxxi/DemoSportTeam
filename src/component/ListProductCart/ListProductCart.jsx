@@ -12,7 +12,7 @@ export default function ListProductCart() {
   useEffect(() => {
     const allSelected =
       cartItems.length > 0 &&
-      cartItems.every((_, index) => selectedItems.has(index));
+      cartItems.every((item) => selectedItems.has(`${item.id}${item.size}${item.color}`));
     setIsAllSelected(allSelected);
     updateSelectedItems(selectedItems);
   }, [cartItems.length, selectedItems]);
@@ -22,12 +22,13 @@ export default function ListProductCart() {
       setSelectedItems(new Set());
       setIsAllSelected(false);
     } else {
-      const newSelectedItems = new Set(cartItems.map((_, index) => index));
+      const newSelectedItems = new Set(cartItems.map((item) => `${item.id}${item.size}${item.color}`));
       setSelectedItems(newSelectedItems);
       setIsAllSelected(true);
     }
   };
   const handleToggleCheckbox = (itemId, isSelected) => {
+    console.log(itemId, isSelected);
     setSelectedItems((prevSelectedItems) => {
       const newSelectedItems = new Set(prevSelectedItems);
       if (isSelected) {
@@ -38,6 +39,7 @@ export default function ListProductCart() {
       return newSelectedItems;
     });
   };
+ 
 
   return (
     <div className="list-product-cart col l-9 m-9 c-9">
@@ -65,7 +67,7 @@ export default function ListProductCart() {
             key={index}
             index={index}
             cartitem={item}
-            isSelected={selectedItems.has(index)}
+            isSelected={selectedItems.has(`${item.id}${item.size}${item.color}`)}
             onToggleCheckbox={handleToggleCheckbox}
           />
         ))}

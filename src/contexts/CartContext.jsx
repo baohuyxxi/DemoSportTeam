@@ -21,12 +21,10 @@ const CartContextProvider = ({ children }) => {
     setTotalProducts(total);
   }, [cartItems]);
   const updateSelectedItems = (listSelected) => {
-    console.log(listSelected);
-
-    const updatedCartItems = cartItems.map((item, i) => {
+    const updatedCartItems = cartItems.map((item) => {
       return {
         ...item,
-        selected: listSelected.has(i),
+        selected: listSelected.has(`${item.id}${item.size}${item.color}`),
       };
     });
     setCartItems(updatedCartItems);
@@ -67,6 +65,11 @@ const CartContextProvider = ({ children }) => {
     setCartItems([]);
     localStorage.removeItem("cart");
   };
+  const checkOut = () => {
+    const updatedCartItems = cartItems.filter((item) => !item.selected);
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cart", JSON.stringify(updatedCartItems));
+  };
 
   return (
     <CartContext.Provider
@@ -79,6 +82,7 @@ const CartContextProvider = ({ children }) => {
         updateQuantity,
         updatePriceProducts,
         updateSelectedItems,
+        checkOut
       }}
     >
       {children}
