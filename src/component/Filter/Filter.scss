@@ -1,16 +1,17 @@
+@import '../../assets/responsive.scss';
 .filter__container {
   position: sticky;
   top: 100px;
   height: max-content;
-  // width: 300px;
-  // min-height: 400px;
-  // max-height: 500px;
   box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.16),
     5px 0 5px -5px rgba(0, 0, 0, 0.16), 0 5px 10px -5px rgba(0, 0, 0, 0.3);
-  line-height: 1.75;
   border-radius: 10px;
   padding: 10px;
   text-transform: capitalize;
+  @include mobile {
+    top: 50px; 
+    padding: 5px; 
+  }
   .filter__header {
     display: flex;
     justify-content: space-between;
@@ -54,6 +55,8 @@
         display: flex;
         justify-content: space-between;
         .filter__item-accordionTitle {
+          font-size: medium;
+          font-weight: 600;
         }
         .filter__item-accordionIcon {
         }
@@ -62,6 +65,7 @@
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.5s ease;
+        line-height: 1.8;
       }
 
       .filter__item-accordionDetails.active {

@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import "./Filter.scss";
 import { useEffect, useState } from "react";
+import Checkbox from "../Checkbox/Checkbox";
 
-
-export default function Filter({loadFilter, setLoadFilter}) {
-  const [expandedPanels, setExpandedPanels] = useState([]);
+export default function Filter({ loadFilter, setLoadFilter }) {
+  const [expandedPanels, setExpandedPanels] = useState(["category"]);
   const [category] = useState(["Clothes", "Blazer", "Shoes", "Sleeve"]);
   const [tags] = useState([
     "Heels",
@@ -51,7 +51,7 @@ export default function Filter({loadFilter, setLoadFilter}) {
     }
   };
   useEffect(() => {
-    if(price|| selectedCategory|| selectedTags){
+    if (price || selectedCategory || selectedTags) {
       const params = new URLSearchParams();
       if (price.from !== "" && price.to !== "") {
         params.set("from", price.from);
@@ -75,12 +75,14 @@ export default function Filter({loadFilter, setLoadFilter}) {
     setSelectedTags([]);
     const newUrl = `${window.location.pathname}`;
     window.history.replaceState(null, "", newUrl);
-  }
+  };
   return (
-    <div className="filter__container col l-3 m-4 c-6">
+    <div className="filter__container col l-3 m-4 c-0">
       <div className="filter__header">
         <div className="filter__title">Filter</div>
-        <div className="filter__clear" onClick={handleClearAll}>Clear All</div>
+        <div className="filter__clear" onClick={handleClearAll}>
+          Clear All
+        </div>
       </div>
       <div className="filter__content">
         <div className="filter__item accordion">
@@ -100,15 +102,13 @@ export default function Filter({loadFilter, setLoadFilter}) {
             }`}
           >
             {category.map((item, index) => (
-              <div className="filter__item-accordionItem" key={index}>
-                <input
-                  type="checkbox"
-                  id={`category-${index}`}
-                  checked={selectedCategory.includes(item) ? true : false}
-                  onChange={(e) => handleTypeProduct(item)}
-                />
-                <label htmlFor={`category-${index}`}>{item}</label>
-              </div>
+              <Checkbox
+                key={index}
+                id={`category-${index}`}
+                label={item}
+                checked={selectedCategory.includes(item)}
+                onChange={() => handleTypeProduct(item)}
+              />
             ))}
           </div>
         </div>
@@ -129,15 +129,13 @@ export default function Filter({loadFilter, setLoadFilter}) {
             }`}
           >
             {tags.map((item, index) => (
-              <div className="filter__item-accordionItem" key={index}>
-                <input
-                  type="checkbox"
-                  id={`tags-${index}`}
-                  checked={selectedTags.includes(item) ? true : false}
-                  onChange={(e) => handleTagsProduct(item)}
-                />
-                <label htmlFor={`tags-${index}`}>{item}</label>
-              </div>
+              <Checkbox
+                key={index}
+                id={`tags-${index}`}
+                label={item}
+                checked={selectedTags.includes(item)}
+                onChange={() => handleTagsProduct(item)}
+              />
             ))}
           </div>
         </div>

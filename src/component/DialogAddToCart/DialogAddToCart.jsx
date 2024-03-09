@@ -1,13 +1,20 @@
 import "./DialogAddToCart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import { CartContext } from "~/contexts/CartContext";
 import React from "react";
 import Slider from "../Slider/Slider";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function DialogAddToCart({ open, handleClose, product }) {
   const dialogRef = useRef(null);
+  const [colors, setColors] = useState([]);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [sizes, setSizes] = useState([]);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useContext(CartContext);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dialogRef.current && !dialogRef.current.contains(event.target)) {
@@ -25,11 +32,7 @@ export default function DialogAddToCart({ open, handleClose, product }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open, handleClose]);
-  const [colors, setColors] = useState([]);
-  const [selectedColor, setSelectedColor] = useState("");
-  const [sizes, setSizes] = useState([]);
-  const [selectedSize, setSelectedSize] = useState("");
-  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     if (
       product.options.some((option) =>
@@ -71,8 +74,27 @@ export default function DialogAddToCart({ open, handleClose, product }) {
       setQuantity(quantity - 1);
     }
   };
+
+  const handleAddToCart = () => {
+    if (
+      (colors.length > 0 && !selectedColor) ||
+      (sizes.length > 0 && !selectedSize)
+    ) {
+      alert("Vui lòng chọn size và color trước khi thêm vào giỏ hàng");
+      return;
+    }
+    addToCart({
+      id: product.id,
+      color: selectedColor,
+      size: selectedSize,
+      quantity: quantity,
+      price: product.variants[0].price,
+    });
+    handleClose();
+  };
+
   return (
-    <dialog open={open} className="dialog__add-to-cart" ref={dialogRef}>
+    <dialog open={open} className={`dialog__add-to-cart ${open ? 'open' : ''}`} ref={dialogRef}>
       <header>
         <h2>Product added to cart</h2>
         <button className="btn__close" onClick={handleClose}>
@@ -85,16 +107,22 @@ export default function DialogAddToCart({ open, handleClose, product }) {
             <Slider image={product.image} images={product.images} />
           </div>
           <div className="dialog__product-info col l-6 m-6 c-6">
-            <div className="product-name">{product.title}</div>
+            <div className="product-name"><span className="title">Name: </span>{product.title}</div>
             <div className="product-type">
-              Product type: {product.product_type}
+              <span className="title">Product type: </span>
+              {product.product_type}
             </div>
-            <div className="product-vendor">vendor: {product.vendor}</div>
-            <div className="product-price">${product.variants[0].price}</div>
+            <div className="product-vendor">
+              {" "}
+              <span className="title">Vendor: </span>
+              {product.vendor}
+            </div>
+            <div className="product-price">
+              <span className="title">Price: </span>${product.variants[0].price}
+            </div>
             {colors.length > 0 && (
               <div className="color__product">
-                <div className="color__title">Color</div>
-
+                <span className="title">Color:</span>
                 <div className="color__list">
                   {colors?.map((item, index) => (
                     <div
@@ -144,7 +172,10 @@ export default function DialogAddToCart({ open, handleClose, product }) {
             <div className="quantity__product">
               <div className="quantity__title">Quantity</div>
               <div className="quantity__container">
-                <button className="quantity__btn decrease" onClick={decreaseQuantity}>
+                <button
+                  className="quantity__btn decrease"
+                  onClick={decreaseQuantity}
+                >
                   -
                 </button>
                 <input
@@ -153,15 +184,18 @@ export default function DialogAddToCart({ open, handleClose, product }) {
                   value={quantity}
                   onChange={(e) => handleQuantity(e.target.value)}
                 />
-                <button className="quantity__btn increase" onClick={increaseQuantity}>
+                <button
+                  className="quantity__btn increase"
+                  onClick={increaseQuantity}
+                >
                   +
                 </button>
               </div>
             </div>
-            <div className="btn__add-to-cart">
+            <button className="btn__add-to-cart" onClick={handleAddToCart}>
               <FontAwesomeIcon icon={faCartPlus} className="icon" />
               <p>Add To Cart</p>
-            </div>
+            </button>
           </div>
         </div>
       </div>

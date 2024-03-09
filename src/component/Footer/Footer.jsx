@@ -1,4 +1,10 @@
 import "./Footer.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookF,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 export default function Footer() {
   return (
     <footer className="footer">
@@ -15,51 +21,49 @@ export default function Footer() {
         </div>
         <div className="footer__about">
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật Hồ chí minh</p>
+            <p>Web Programming</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>Mobile Programming</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>Java Beginner</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>PHP Beginner</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>PHP Beginner</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>Mobile Programming</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>Mobile Programming</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>PHP Beginner</p>
           </div>
           <div className="item__about">
-            <p>Trường đại học Sư Phạm Kỹ Thuật</p>
+            <p>Mobile Programming</p>
           </div>
         </div>
       </div>
+      <div className="divider"></div>
       <div className="footer__below">
         <div className="footer__contact">
-          <p>abc@gmail.com</p>
+          Copyright © MyCourse.io 2024. All Rights Reserved 
         </div>
-        <div className="footer__social">
-          <div className="footer__social__item">
-          b
-          </div>
-          <div className="footer__social__item">
-           a
-          </div>
-          <div className="footer__social__item">
-          a
-          </div>
-          <div className="footer__social__item">
-           a
-          </div>
+        <div>
+          <FontAwesomeIcon
+            icon={faFacebookF}
+            className="footer__social"
+          />
+          <FontAwesomeIcon
+            icon={faInstagram}
+            className="footer__social"
+          />
+          <FontAwesomeIcon icon={faTwitter} className="footer__social" />
         </div>
       </div>
     </footer>

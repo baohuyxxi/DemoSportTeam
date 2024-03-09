@@ -1,8 +1,14 @@
+.dialog__add-to-cart.open {
+  bottom: 0;
+}
 .dialog__add-to-cart {
   position: fixed;
-  top: 0;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
+  top: 0; 
+  left: 0;
+  right: 0;
+  background-color: white;
+  transition: bottom 0.3s ease;
+  z-index: 9999;
   background-color: white;
   padding: 20px;
   border: none;
@@ -11,10 +17,6 @@
   z-index: 9999;
   width: 70vw;
   max-width: 1075px;
-  // max-height: 80vh;
-  & > div {
-    /* Phần nội dung của dialog */
-  }
 
   &.closed {
     display: none;
@@ -24,6 +26,7 @@
     display: flex;
     justify-content: space-between;
     .btn__close {
+      border: none;
       font-size: xx-large;
       &:hover {
         color: red;
@@ -44,11 +47,12 @@
         .color__title {
         }
         .color__list {
+          font-size: medium;
           display: flex;
           flex-wrap: wrap;
-          font-size: medium;
+          text-align: center;
           .color__item {
-            padding: 5px;
+            padding: 0 5px;
             margin: 5px;
             border: 2px solid #ccc;
           }
@@ -64,7 +68,10 @@
           font-size: medium;
           display: flex;
           flex-wrap: wrap;
+          text-align: center;
           .size__item {
+            aspect-ratio: 1;
+            width: 40px;
             padding: 5px;
             margin: 5px;
             border: 2px solid #ccc;
@@ -90,8 +97,7 @@
             border: 1px solid #ccc;
           }
           .quantity__btn {
-            display: flex;
-            text-align: center;
+            justify-content: center;
             align-items: center;
             font-weight: 600;
             width: 40px;
@@ -99,16 +105,19 @@
             cursor: pointer;
             border: 1px solid #ccc;
           }
-          .decrease{
-              border-top-left-radius: 5px;
-              border-bottom-left-radius: 5px;
-
+          .decrease {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
           }
-          .increase{
-              border-top-right-radius: 5px;
-              border-bottom-right-radius: 5px;
+          .increase {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
           }
         }
+      }
+      .title{
+        font-size: medium;
+        font-weight: 700;
       }
     }
     .btn__add-to-cart {
@@ -116,7 +125,7 @@
       margin-top: 10px;
       width: max-content;
       border: 2px solid var(--primary-main);
-      border-radius:5px;
+      border-radius: 5px;
       align-items: center;
       display: flex;
       background-color: #c0dbf6;

@@ -1,0 +1,20 @@
+.list-product-cart {
+  width: 100%;
+  padding-top: 50px;
+  .list-product-cart__header {
+    margin: 0;
+    width: 100%;
+    // border: 2px solid #ccc;
+    padding: 20px 0px;
+    box-shadow: 2px 4px 4px 3px rgba(0, 0, 0, 0.10) ;
+    .menu-left {
+    }
+    .menu-right {
+      text-align: center;
+    }
+  }
+  .list-product-cart__content {
+    padding: 20px 0px;
+    display: grid;
+  }
+}

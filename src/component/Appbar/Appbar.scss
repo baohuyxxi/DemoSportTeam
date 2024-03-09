@@ -30,28 +30,41 @@
     }
     .appbar__menu-right {
       display: flex;
-        .appbar__menu-right-item {
-            margin: 0 20px;
-            .appbar__menu-right-item__icon {
-            font-size: 30px;
-            }
-            .appbar__cart{
-                border-radius: 10px; 
-                border: none;
-                background-color: inherit;
-                padding: 10px;
-                .appvar__cart-icon{
-                    font-size: x-large;
-                }
-                &:hover{
-                    background-color: #F2F3F3;
-                    .appvar__cart-icon{
-                       
-                        scale: 1.1;
-                    }
-                }
-            }
+      align-items: center;
+      .appbar__menu-right-item {
+        margin: 0 20px;
+        .appbar__menu-right-item__icon {
+          font-size: 30px;
         }
+  
+        .appbar__cart {
+          position: relative;
+          border-radius: 10px;
+          border: none;
+          background-color: inherit;
+          padding: 10px;
+          
+          &:hover {
+            scale: 1.1;
+          }
+          .cart-item-count {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+          }
+        }
+      }
     }
   }
 }

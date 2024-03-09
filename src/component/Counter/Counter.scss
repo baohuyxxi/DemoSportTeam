@@ -1,0 +1,31 @@
+.quantity__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    .quantity__input {
+      width: 40%;
+      aspect-ratio: 4/3;
+      text-align: center;
+      font-size: medium;
+      border: 1px solid #ccc;
+    }
+    .quantity__btn {
+      justify-content: center;
+      align-items: center;
+      width: 30%;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      
+    }
+    .decrease{
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+
+    }
+    .increase{
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+  }

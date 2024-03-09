@@ -17,10 +17,8 @@ export default function ListProduct({ loadFilter, setLoadFilter }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     productAPI.allProducts().then((data) => {
       setListProducts(data.products);
-      setLoading(false);
     });
   }, []);
 
@@ -31,15 +29,17 @@ export default function ListProduct({ loadFilter, setLoadFilter }) {
   }, [sortBy, loadFilter]);
 
   const sortProducts = (sortedList) => {
-    if (sortBy === "priceLowToHigh") {
-      sortedList.sort((a, b) => a.variants[0].price - b.variants[0].price);
-    }
-    if (sortBy === "priceHighToLow") {
-      sortedList.sort((a, b) => b.variants[0].price - a.variants[0].price);
-    }
+    const timer = setTimeout(() => {
+      if (sortBy === "priceLowToHigh") {
+        sortedList.sort((a, b) => a.variants[0].price - b.variants[0].price);
+      }
+      if (sortBy === "priceHighToLow") {
+        sortedList.sort((a, b) => b.variants[0].price - a.variants[0].price);
+      }
+    }, 200);
   };
   useEffect(() => {
-    if (loadFilter || listProducts.length > 0) {
+    if (loadFilter === true && listProducts.length > 0) {
       setLoading(true);
       const timer = setTimeout(() => {
         const params = new URLSearchParams(window.location.search);
@@ -113,8 +113,8 @@ export default function ListProduct({ loadFilter, setLoadFilter }) {
     scrollToTop();
   };
   return (
-    <div className="page__list-product col l-9 m-8 c-6">
-      {loading === true ? (
+    <div className="page__list-product col l-9 m-8 c-12">
+      {loading === true && loadFilter=== true ? (
         <SkeletonListProduct />
       ) : (
         <>

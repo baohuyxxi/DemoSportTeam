@@ -2,6 +2,7 @@
   position: relative;
   height: max-content;
   padding: 10px;
+  border-radius: 5px;
   .card__product-img {
     width: 100%;
     aspect-ratio: 4/3;
@@ -54,6 +55,7 @@
     }
   }
   &:hover.card__product {
+    box-shadow: 2px 4px 4px 3px rgba(0, 0, 0, 0.10) ;
     .card__product-btn {
       display: contents;
     }

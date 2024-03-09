@@ -6,8 +6,8 @@ const productAPI = {
         const response = await axios.get('products/7278544552145.json');
         return response.data;
     },
-    pecialProduct: async()=>{
-        const response = await axios.get('products/7278544552145.json');
+    pecialProduct: async(id)=>{
+        const response = await axios.get(`products/${id}.json`);
         return response.data;
     },
     listProducts: async()=>{
