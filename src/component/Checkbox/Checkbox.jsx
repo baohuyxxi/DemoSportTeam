@@ -1,3 +1,4 @@
+import './Checkbox.scss';
 import React from "react";
 
 function Checkbox({ id, label, checked, onChange }) {
@@ -10,7 +11,7 @@ function Checkbox({ id, label, checked, onChange }) {
         onChange={onChange}
       />
       <label htmlFor={id} className="check-box"></label>
-      <label className="title__check-box">{label}</label>
+      <label htmlFor={id} className="title__check-box">{label}</label>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState, useContext } from "react";
 import { CartContext } from "~/contexts/CartContext";
+import Counter from "../Counter/Counter";
 import React from "react";
 import Slider from "../Slider/Slider";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
@@ -34,53 +35,24 @@ export default function DialogAddToCart({ open, handleClose, product }) {
   }, [open, handleClose]);
 
   useEffect(() => {
-    if (
-      product.options.some((option) =>
+    setColors(
+      product.options.find((option) =>
         option.name.toLowerCase().includes("color")
-      )
-    ) {
-      setColors(
-        product.options.find((option) =>
-          option.name.toLowerCase().includes("color")
-        )?.values
-      );
-    }
-    if (
-      product.options.some((option) =>
+      )?.values || []
+    );
+    setSizes(
+      product.options.find((option) =>
         option.name.toLowerCase().includes("size")
-      )
-    ) {
-      setSizes(
-        product.options.find((option) =>
-          option.name.toLowerCase().includes("size")
-        )?.values
-      );
-    }
+      )?.values || []
+    );
   }, [product]);
-  const handleQuantity = (value) => {
-    value = value.replace(/\D/g, "");
-    let intValue = parseInt(value);
-    if (isNaN(intValue) || intValue < 0) {
-      intValue = 1;
-    }
-    setQuantity(intValue);
-  };
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
 
   const handleAddToCart = () => {
     if (
       (colors.length > 0 && !selectedColor) ||
       (sizes.length > 0 && !selectedSize)
     ) {
-      alert("Vui lòng chọn size và color trước khi thêm vào giỏ hàng");
+      alert("Please select size and color before adding to cart!");
       return;
     }
     addToCart({
@@ -94,7 +66,11 @@ export default function DialogAddToCart({ open, handleClose, product }) {
   };
 
   return (
-    <dialog open={open} className={`dialog__add-to-cart ${open ? 'open' : ''}`} ref={dialogRef}>
+    <dialog
+      open={open}
+      className={`dialog__add-to-cart ${open ? "open" : ""}`}
+      ref={dialogRef}
+    >
       <header>
         <h2>Product added to cart</h2>
         <button className="btn__close" onClick={handleClose}>
@@ -107,13 +83,15 @@ export default function DialogAddToCart({ open, handleClose, product }) {
             <Slider image={product.image} images={product.images} />
           </div>
           <div className="dialog__product-info col l-6 m-6 c-6">
-            <div className="product-name"><span className="title">Name: </span>{product.title}</div>
+            <div className="product-name">
+              <span className="title">Name: </span>
+              {product.title}
+            </div>
             <div className="product-type">
               <span className="title">Product type: </span>
               {product.product_type}
             </div>
             <div className="product-vendor">
-              {" "}
               <span className="title">Vendor: </span>
               {product.vendor}
             </div>
@@ -146,7 +124,7 @@ export default function DialogAddToCart({ open, handleClose, product }) {
             )}
             {sizes.length > 0 && (
               <div className="size__product">
-                <div className="size__title">Size</div>
+                <div className="title">Size</div>
                 <div className="size__list">
                   {sizes?.map((item, index) => (
                     <div
@@ -170,27 +148,8 @@ export default function DialogAddToCart({ open, handleClose, product }) {
             )}
 
             <div className="quantity__product">
-              <div className="quantity__title">Quantity</div>
-              <div className="quantity__container">
-                <button
-                  className="quantity__btn decrease"
-                  onClick={decreaseQuantity}
-                >
-                  -
-                </button>
-                <input
-                  className="quantity__input"
-                  defaultValue="1"
-                  value={quantity}
-                  onChange={(e) => handleQuantity(e.target.value)}
-                />
-                <button
-                  className="quantity__btn increase"
-                  onClick={increaseQuantity}
-                >
-                  +
-                </button>
-              </div>
+              <div className="title">Quantity</div>
+              <Counter quantity={quantity} setQuantity={setQuantity} />
             </div>
             <button className="btn__add-to-cart" onClick={handleAddToCart}>
               <FontAwesomeIcon icon={faCartPlus} className="icon" />

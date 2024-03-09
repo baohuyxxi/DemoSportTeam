@@ -6,8 +6,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
-export default function CardProduct(props) {
-  const { product } = props;
+export default function CardProduct({ product }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);

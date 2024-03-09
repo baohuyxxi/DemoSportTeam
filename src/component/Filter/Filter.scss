@@ -6,7 +6,7 @@
   box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.16),
     5px 0 5px -5px rgba(0, 0, 0, 0.16), 0 5px 10px -5px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   text-transform: capitalize;
   @include mobile {
     top: 50px; 
@@ -30,6 +30,10 @@
   }
   .filter__content {
     .filter__item {
+      .filter__item-title{
+        font-size: medium;
+          font-weight: 600;
+      }
       .filter__price {
         display: flex;
         justify-content: space-between;

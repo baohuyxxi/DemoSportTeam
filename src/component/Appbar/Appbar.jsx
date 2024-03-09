@@ -20,19 +20,19 @@ export default function Appbar() {
     <header className="appbar">
       <div className="appbar__menu">
         <div className="appbar__menu-left">
-          <div className="appbar__menu-left-item">
-            <div className="appbar__logo">
+          <div className="appbar__left-item">
+            <div className="appbar__logo"  onClick={handleLogoClick}   >
               <img
                 src="https://logowik.com/content/uploads/images/sports8897.jpg"
                 alt="logo"
                 className="img__logo"
-                onClick={handleLogoClick}   
+               
               />
             </div>
           </div>
         </div>
         <div className="appbar__menu-right">
-          <div className="appbar__menu-right-item">
+          <div className="appbar__right-item">
             <button className="appbar__cart" onClick={handleCartClick}>
             <span className="cart-item-count">{cartItemCount}</span>
               <FontAwesomeIcon
@@ -41,8 +41,8 @@ export default function Appbar() {
               />
             </button>
           </div>
-          <div className="appbar__menu-right-item"><FontAwesomeIcon icon={faBell} className="button__icon"/></div>
-          <div className="appbar__menu-right-item"><FontAwesomeIcon icon={faUser} className="button__icon"/></div>
+          <div className="appbar__right-item"><FontAwesomeIcon icon={faBell} className="button__icon"/></div>
+          <div className="appbar__right-item"><FontAwesomeIcon icon={faUser} className="button__icon"/></div>
         </div>
       </div>
     </header>

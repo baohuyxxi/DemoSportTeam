@@ -6,50 +6,45 @@ import Checkbox from "../Checkbox/Checkbox";
 
 export default function Filter({ loadFilter, setLoadFilter }) {
   const [expandedPanels, setExpandedPanels] = useState(["category"]);
-  const [category] = useState(["Clothes", "Blazer", "Shoes", "Sleeve"]);
+  const [category] = useState(["clothes", "blazer", "shoes", "sleeve"]);
   const [tags] = useState([
-    "Heels",
-    "Skirts",
-    "Hat",
-    "Jacket",
-    "Blazer",
+    "heels",
+    "skirts",
+    "hat",
+    "jacket",
+    "blazer",
     "shoes",
-    "Dress",
-    "Indoor",
-    "Outdoor",
-    "Sleeve",
+    "dress",
+    "indoor",
+    "outdoor",
+    "sleeve",
   ]);
   const [price, setPrice] = useState({ from: "", to: "" });
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
-  const handleChange = (panel) => {
-    if (expandedPanels.includes(panel)) {
-      setExpandedPanels(expandedPanels.filter((p) => p !== panel));
-    } else {
-      setExpandedPanels([...expandedPanels, panel]);
-    }
-  };
 
-  const isPanelExpanded = (panel) => expandedPanels.includes(panel);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setPrice({ from: params.get("from") || "", to: params.get("to") || "" });
+    setSelectedCategory(
+      params.get("category") ? params.get("category").split(",") : []
+    );
+    setSelectedTags(params.get("tags") ? params.get("tags").split(",") : []);
+  }, []);
+
+  const handleChange = (panel) => {
+    setExpandedPanels((prevPanels) =>
+      prevPanels.includes(panel)
+        ? prevPanels.filter((p) => p !== panel)
+        : [...prevPanels, panel]
+    );
+  };
 
   const handlePriceChange = (event) => {
     const { name, value } = event.target;
     setPrice({ ...price, [name]: value });
   };
-  const handleTypeProduct = (value) => {
-    if (selectedCategory.includes(value)) {
-      setSelectedCategory(selectedCategory.filter((item) => item !== value));
-    } else {
-      setSelectedCategory([...selectedCategory, value]);
-    }
-  };
-  const handleTagsProduct = (value) => {
-    if (selectedTags.includes(value)) {
-      setSelectedTags(selectedTags.filter((item) => item !== value));
-    } else {
-      setSelectedTags([...selectedTags, value]);
-    }
-  };
+
   useEffect(() => {
     if (price || selectedCategory || selectedTags) {
       const params = new URLSearchParams();
@@ -69,12 +64,32 @@ export default function Filter({ loadFilter, setLoadFilter }) {
     }
   }, [price, selectedCategory, selectedTags]);
 
+  console.log(selectedTags, selectedCategory);
   const handleClearAll = () => {
     setPrice({ from: "", to: "" });
     setSelectedCategory([]);
     setSelectedTags([]);
     const newUrl = `${window.location.pathname}`;
     window.history.replaceState(null, "", newUrl);
+  };
+
+  const renderCheckboxItems = (items, selectedItems, handleItemClick) => {
+    const handleSelect = (value, selected, setSelected) => {
+      if (selected.includes(value)) {
+        setSelected(selected.filter((item) => item !== value));
+      } else {
+        setSelected([...selected, value]);
+      }
+    };
+    return items.map((item, index) => (
+      <Checkbox
+        key={index}
+        id={`${item}-${index}`}
+        label={item}
+        checked={selectedItems.includes(item)}
+        onChange={() => handleSelect(item, selectedItems, handleItemClick)}
+      />
+    ));
   };
   return (
     <div className="filter__container col l-3 m-4 c-0">
@@ -85,60 +100,37 @@ export default function Filter({ loadFilter, setLoadFilter }) {
         </div>
       </div>
       <div className="filter__content">
-        <div className="filter__item accordion">
-          <div
-            className="filter__item-accordionSummary"
-            onClick={() => handleChange("category")}
-          >
-            <div className="filter__item-accordionTitle">Category</div>
-            <FontAwesomeIcon
-              icon={isPanelExpanded("category") ? faChevronUp : faChevronDown}
-              className="filter__item-accordionIcon"
-            />
-          </div>
-          <div
-            className={`filter__item-accordionDetails ${
-              isPanelExpanded("category") ? "active" : ""
-            }`}
-          >
-            {category.map((item, index) => (
-              <Checkbox
-                key={index}
-                id={`category-${index}`}
-                label={item}
-                checked={selectedCategory.includes(item)}
-                onChange={() => handleTypeProduct(item)}
+        {["category", "tags"].map((panel) => (
+          <div className="filter__item accordion" key={panel}>
+            <div
+              className="filter__item-accordionSummary"
+              onClick={() => handleChange(panel)}
+            >
+              <div className="filter__item-accordionTitle">
+                {panel.charAt(0).toUpperCase() + panel.slice(1)}
+              </div>
+              <FontAwesomeIcon
+                icon={
+                  expandedPanels.includes(panel) ? faChevronUp : faChevronDown
+                }
+                className="filter__item-accordionIcon"
               />
-            ))}
+            </div>
+            <div
+              className={`filter__item-accordionDetails ${
+                expandedPanels.includes(panel) ? "active" : ""
+              }`}
+            >
+              {panel === "category"
+                ? renderCheckboxItems(
+                    category,
+                    selectedCategory,
+                    setSelectedCategory
+                  )
+                : renderCheckboxItems(tags, selectedTags, setSelectedTags)}
+            </div>
           </div>
-        </div>
-        <div className="filter__item accordion">
-          <div
-            className="filter__item-accordionSummary"
-            onClick={() => handleChange("tags")}
-          >
-            <div className="filter__item-accordionTitle">Tags</div>
-            <FontAwesomeIcon
-              icon={isPanelExpanded("tags") ? faChevronUp : faChevronDown}
-              className="filter__item-accordionIcon"
-            />
-          </div>
-          <div
-            className={`filter__item-accordionDetails ${
-              isPanelExpanded("tags") ? "active" : ""
-            }`}
-          >
-            {tags.map((item, index) => (
-              <Checkbox
-                key={index}
-                id={`tags-${index}`}
-                label={item}
-                checked={selectedTags.includes(item)}
-                onChange={() => handleTagsProduct(item)}
-              />
-            ))}
-          </div>
-        </div>
+        ))}
         <div className="filter__item">
           <div className="filter__item-title">Price range</div>
           <div className="filter__price row">

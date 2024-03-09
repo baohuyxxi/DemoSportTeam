@@ -16,11 +16,22 @@ const CartContextProvider = ({ children }) => {
   useEffect(() => {
     let total = 0;
     cartItems.forEach((item) => {
-      total += item.price * item.quantity;
+      if (item.selected) total += item.price * item.quantity;
     });
     setTotalProducts(total);
   }, [cartItems]);
-  const updatePriceProducts = (index,price) => {
+  const updateSelectedItems = (listSelected) => {
+    console.log(listSelected);
+
+    const updatedCartItems = cartItems.map((item, i) => {
+      return {
+        ...item,
+        selected: listSelected.has(i),
+      };
+    });
+    setCartItems(updatedCartItems);
+  };
+  const updatePriceProducts = (index, price) => {
     const updatedCartItems = cartItems.map((item, i) => {
       if (i === index) {
         return { ...item, price: price };
@@ -66,7 +77,8 @@ const CartContextProvider = ({ children }) => {
         removeFromCart,
         clearCart,
         updateQuantity,
-        updatePriceProducts
+        updatePriceProducts,
+        updateSelectedItems,
       }}
     >
       {children}

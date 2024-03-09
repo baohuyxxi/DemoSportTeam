@@ -15,7 +15,7 @@ export default function Counter({quantity, setQuantity}) {
   const handleQuantity = (value) => {
     value = value.replace(/\D/g, "");
     let intValue = parseInt(value);
-    if (isNaN(intValue) || intValue < 0) {
+    if (isNaN(intValue) || intValue <= 0) {
       intValue = 1;
     }
     setQuantity(intValue);

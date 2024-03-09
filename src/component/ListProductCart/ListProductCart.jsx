@@ -5,7 +5,7 @@ import "./ListProductCart.scss";
 import Checkbox from "../Checkbox/Checkbox";
 
 export default function ListProductCart() {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, updateSelectedItems } = useContext(CartContext);
   const [selectedItems, setSelectedItems] = useState(new Set());
   const [isAllSelected, setIsAllSelected] = useState(false);
 
@@ -14,6 +14,7 @@ export default function ListProductCart() {
       cartItems.length > 0 &&
       cartItems.every((_, index) => selectedItems.has(index));
     setIsAllSelected(allSelected);
+    updateSelectedItems(selectedItems);
   }, [cartItems.length, selectedItems]);
 
   const handleToggleAllCheckbox = () => {

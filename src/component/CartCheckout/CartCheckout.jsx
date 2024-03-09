@@ -7,7 +7,7 @@ export default function CartCheckout() {
   const [totalPrice, setTotalPrice] = useState(0);
   const shippingCost = 10;
   useEffect(() => {
-    setTotalPrice(totalProducts + shippingCost);
+    setTotalPrice(totalProducts ? totalProducts + shippingCost : 0);
   }, [totalProducts]);
   return (
     <div className="cart-checkout__container col l-3 m-3 c-3">
@@ -17,10 +17,13 @@ export default function CartCheckout() {
           <span>Total Products:</span>
           <span>${totalProducts}</span>
         </div>
-        <div className="cart-checkout__item">
-          <span>Shipping Cost:</span>
-          <span>${shippingCost}</span>
-        </div>
+        {totalProducts > 0 && (
+          <div className="cart-checkout__item">
+            <span>Shipping Cost:</span>
+            <span>${shippingCost}</span>
+          </div>
+        )}
+
         <div className="divider"></div>
         <div className="cart-checkout__item total">
           <span>Total Price:</span>
